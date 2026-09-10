@@ -1,0 +1,4 @@
+# chaves / segredos locais — nunca versionar
+config.js
+.env
+*.key

@@ -1,0 +1,104 @@
+[
+  {
+    "id": "intro",
+    "title": "Introdução ao tema",
+    "tags": ["introdução", "tema", "resumo", "trabalho", "pesquisa", "questão central"],
+    "text": "O trabalho da Companhia das Máscaras Gregas investiga o nascimento do teatro grego no mundo antigo e sua influência sobre a cultura ocidental até hoje. A questão central da pesquisa é: como o teatro grego transformou a maneira como os seres humanos contam histórias, representam conflitos e refletem sobre a sociedade? O teatro não nasceu de repente nem foi invenção de uma única pessoa: foi resultado de um processo histórico que uniu religião, poesia, música, dança, festas públicas, mitologia e vida política em uma nova forma de expressão."
+  },
+  {
+    "id": "origem-religiao",
+    "title": "Religião e origens do drama",
+    "tags": ["dionísio", "religião", "origem", "ditirambo", "téspis", "rituais", "grande dionísia"],
+    "text": "O teatro grego surgiu em Atenas, no século VI a.C., ligado às celebrações públicas em homenagem a Dionísio, deus do vinho, da fertilidade, do êxtase e da transformação. A Grande Dionísia reunia procissões religiosas, sacrifícios, apresentações corais e competições dramáticas no Teatro de Dionísio, na encosta sul da Acrópole. Antes do drama, existiam coros que cantavam o ditirambo em louvor a Dionísio. O salto para o teatro aconteceu quando um integrante do coro se destacou para dialogar com o grupo, criando a alternância entre narrador e coletivo. A tradição atribui a Téspis o papel de primeiro ator, o primeiro a se projetar do coro para representar um personagem individual usando máscaras — daí vem a palavra 'tespiano', usada até hoje para designar teatro."
+  },
+  {
+    "id": "generos",
+    "title": "Gêneros dramáticos: tragédia, comédia e drama satírico",
+    "tags": ["gêneros", "tragédia", "comédia", "drama satírico", "sátiros"],
+    "text": "O teatro grego se organizava em três gêneros: tragédia, comédia e drama satírico. A tragédia tratava de conflitos morais graves vividos por reis, heróis e figuras mitológicas, funcionando como um laboratório sociológico e moral sobre destino, justiça e poder. A comédia usava riso, sátira, paródia e absurdo para criticar políticos, costumes e até os deuses — na Comédia Antiga, Aristófanes ridicularizava abertamente autoridades atenienses. O drama satírico, encenado após as trilogias trágicas, usava um coro de sátiros (criaturas metade homem, metade bode) para trazer alívio cômico depois da carga emocional da tragédia."
+  },
+  {
+    "id": "tragedia-x-comedia",
+    "title": "Tragédia versus comédia",
+    "tags": ["tragédia", "comédia", "comparação", "diferença", "catarse", "riso"],
+    "text": "Tragédia e comédia representam duas filosofias estéticas distintas. A tragédia trata de mito e passado heroico, com conflito centrado no destino e na queda do herói, gerando temor, compaixão e catarse, em tom solene e político-religioso. A comédia trata da vida cotidiana e do presente, com conflito baseado em exagero e reversão social, gerando riso, alívio e crítica, em tom irreverente e satírico. Os personagens da tragédia são reis, heróis e deuses; os da comédia são cidadãos comuns, escravos e figuras políticas ridicularizadas. O desfecho trágico é catástrofe, morte ou exílio; o cômico é reconciliação, festa ou casamento."
+  },
+  {
+    "id": "arquitetura",
+    "title": "Arquitetura e espaço teatral",
+    "tags": ["theatron", "orchestra", "skene", "parodoi", "arquitetura", "espaço teatral", "mechane", "ekkyklema", "deus ex machina"],
+    "text": "O teatro grego era construído ao ar livre, aproveitando encostas naturais, e podia abrigar entre 10.000 e 17.000 espectadores. Seus quatro componentes principais eram: o theatron (arquibancadas semicirculares onde o público se sentava — 'lugar de onde se vê'), a orchestra (área circular central para o canto e dança do coro, com o altar chamado thymele), a skēnē (construção atrás da orchestra, inicialmente uma tenda, depois estrutura para cenário) e os parodoi (corredores de entrada laterais para coro e público). Recursos cênicos incluíam a mechanē, um guindaste que fazia atores 'voarem' como deuses (origem da expressão 'deus ex machina'), e a ekkyklēma, uma plataforma com rodas usada para mostrar as consequências de atos violentos ocorridos fora de cena, já que a tradição grega proibia mostrar mortes diretamente no palco."
+  },
+  {
+    "id": "mascaras",
+    "title": "As máscaras e sua relevância simbólica",
+    "tags": ["máscara", "prosopon", "simbolismo", "atores homens", "expressão"],
+    "text": "A máscara (prosopon, em grego) é o símbolo mais duradouro do teatro. Como apenas dois ou três atores principais interpretavam todos os papéis, a máscara permitia trocar instantaneamente de personagem — de idade, gênero e status social — apenas trocando de máscara e figurino na skēnē. Como todo o elenco era masculino, a máscara também viabilizava a interpretação de personagens femininas, como Antígona, Medeia e Clitemnestra. Pesquisas contemporâneas contestam o mito de que a boca da máscara amplificava a voz como um alto-falante: sua função era visual, simbólica e tipológica, não acústica. Com o rosto coberto, toda a carga dramática se transferia para a voz, o gesto e o movimento corporal. As duas máscaras clássicas — uma sorridente e outra soturna — representam até hoje a dupla polaridade da existência: a comédia do absurdo e a tragédia da finitude."
+  },
+  {
+    "id": "esquilo",
+    "title": "Ésquilo, o pai da tragédia",
+    "tags": ["ésquilo", "oresteia", "agamêmnon", "segundo ator", "dramaturgo"],
+    "text": "Ésquilo (c. 525–456 a.C.) é considerado o criador da estrutura trágica monumental. Sua principal inovação foi introduzir o segundo ator (deuteragonista), reduzindo o domínio do coro e criando o conflito dramático direto entre dois indivíduos. Sua obra-prima é a trilogia Oresteia (Agamêmnon, As Coéforas e As Eumênides), a única trilogia completa que sobreviveu da Antiguidade, que narra a vingança dentro da Casa de Átreu e termina com a criação de um tribunal para julgar Orestes — simbolizando a passagem da vingança de sangue para a justiça institucional do Estado."
+  },
+  {
+    "id": "sofocles",
+    "title": "Sófocles, o equilíbrio clássico",
+    "tags": ["sófocles", "édipo rei", "antígona", "terceiro ator", "hamartia", "ironia trágica"],
+    "text": "Sófocles (c. 496–406 a.C.) levou a tragédia à perfeição formal, introduzindo o terceiro ator (tritagonista) e aumentando o coro de doze para quinze integrantes. Sua peça Édipo Rei é considerada por Aristóteles o modelo supremo da tragédia: Édipo, sem saber, mata o próprio pai e se casa com a própria mãe, tentando fugir exatamente do destino que acaba cumprindo (ironia trágica) — daí o conceito de hamartia, o erro trágico do herói. Em Antígona, Sófocles mostra o choque entre o dever moral de Antígona de sepultar o irmão e o decreto do rei Creonte que proíbe isso, revelando a fragilidade das certezas humanas diante de valores éticos incompatíveis."
+  },
+  {
+    "id": "euripides",
+    "title": "Eurípides, o realismo psicológico",
+    "tags": ["eurípides", "medeia", "as troianas", "realismo psicológico", "crítica social"],
+    "text": "Eurípides (c. 480–406 a.C.) foi o mais arrojado dos três grandes trágicos, antecipando o realismo psicológico ao criar heróis sem idealização, cheios de paixões e contradições. Em Medeia, mostra uma mulher traída e abandonada que arquiteta uma vingança terrível, expondo a opressão feminina e a xenofobia na sociedade grega. Em As Troianas, dá voz às vítimas femininas da guerra. Eurípides também criticava os deuses tradicionais, retratando-os como caprichosos ou cruéis."
+  },
+  {
+    "id": "aristoteles",
+    "title": "Aristóteles e a Poética",
+    "tags": ["aristóteles", "poética", "catarse", "mímesis", "peripécia", "anagnórise"],
+    "text": "No século IV a.C., Aristóteles escreveu a Poética, primeira teoria sistemática do teatro. Para ele, o objetivo da tragédia é a catarse: a purificação das emoções do público por meio da piedade (eleos) e do terror (phobos) vividos empaticamente. Aristóteles também definiu a peripécia (reviravolta súbita da sorte) e a anagnórise (o momento de reconhecimento da verdade pelo herói). Ele defendeu ainda o conceito de mímesis (imitação da realidade): para ele, a poesia é mais filosófica que a história, pois a história conta o que aconteceu, e a poesia representa o que poderia acontecer."
+  },
+  {
+    "id": "aristofanes",
+    "title": "Aristófanes e a comédia como crítica social",
+    "tags": ["aristófanes", "lisístrata", "comédia antiga", "parábase", "crítica política"],
+    "text": "Aristófanes (c. 446–386 a.C.) é o maior nome da Comédia Antiga, usando o palco como tribuna cívica para ridicularizar políticos, generais, filósofos (como Sócrates, em As Nuvens) e até a Guerra do Peloponeso. Em Lisístrata, as mulheres de Atenas e Esparta fazem uma greve de sexo até que os homens façam a paz, denunciando o absurdo da guerra. Um recurso típico era a parábase, momento em que o coro tirava as máscaras e falava diretamente ao público sobre problemas da cidade. Depois, com a perda da liberdade política ateniense, surgiu a Comédia Nova de Menandro, que abandonou a crítica política direta e passou a tratar de dilemas familiares e do cotidiano, influenciando o teatro romano e a comédia moderna."
+  },
+  {
+    "id": "atores-coro",
+    "title": "Atores e coro",
+    "tags": ["ator", "coro", "hypokritai", "hybris", "corego"],
+    "text": "Os atores gregos (hypokritai, 'aquele que responde') eram profissionais respeitados, com formação em controle respiratório, dicção e gestos amplos, e chegavam a ter imunidade diplomática em tempos de guerra. O coro, com 12 a 15 integrantes na tragédia (ou 24 na comédia), funcionava como consciência coletiva: alertava o herói contra a hybris (arrogância excessiva), comentava os acontecimentos, representava a sociedade e marcava o ritmo com cantos e danças. A produção das peças dependia do corego (choregos), um cidadão rico responsável por financiar o coro, os músicos e o figurino, por dever cívico."
+  },
+  {
+    "id": "musica",
+    "title": "A música no teatro grego",
+    "tags": ["música", "aulos", "lira", "dança", "modos musicais"],
+    "text": "O teatro grego era uma arte integrada de palavra, música e dança — uma espécie de proto-ópera. Boa parte dos diálogos era cantada ou recitada com acompanhamento musical, principalmente do aulos, instrumento de sopro de palheta dupla com som penetrante. Diferentes modos musicais (dório, frígio, lídio) despertavam emoções específicas no público, da coragem guerreira ao lamento. A música organizava o tempo da narrativa e conduzia o público do temor à compaixão."
+  },
+  {
+    "id": "legado",
+    "title": "O legado do teatro grego no mundo contemporâneo",
+    "tags": ["legado", "influência", "hoje", "cinema", "atualidade", "conclusão"],
+    "text": "O teatro grego não é um capítulo fechado da Antiguidade: ele fundou um código cultural que molda o mundo até hoje. A estrutura narrativa em atos, o arco do personagem, a catarse emocional, a revelação final (anagnórise) e o alívio cômico continuam presentes no cinema, nas séries de streaming, nas telenovelas e no teatro moderno. O teatro também ensinou que a arte é uma necessidade cívica: uma sociedade só evolui quando tem coragem de se reunir publicamente para questionar suas certezas e refletir sobre sua própria existência. Muda o palco, a tecnologia e o formato — permanece o encontro entre quem representa e quem assiste."
+  },
+  {
+    "id": "espaco-teatral-slides",
+    "title": "O espaço teatral segundo a apresentação em slides",
+    "tags": ["teatro", "arquitetura", "público", "acústica", "democracia espacial"],
+    "text": "A apresentação em slides descreve o teatro grego como uma arquitetura pensada para milhares de olhos: a disposição semicircular do theatron garantia visão clara da orchestra para todos os cidadãos, refletindo a igualdade da pólis. Os teatros eram construídos em encostas naturais, integrando paisagem, mar e céu à cena — 'o teatro grego não se fecha para o mundo, ele o emoldura'."
+  },
+  {
+    "id": "o-que-e-teatro",
+    "title": "O que entendemos por teatro?",
+    "tags": ["definição", "o que é teatro", "corpo", "voz", "espaço", "público"],
+    "text": "Segundo a apresentação, teatro é o encontro entre corpo (a ferramenta da ação), voz (o veículo do texto), espaço (o lugar do encontro) e público (a testemunha necessária). Teatro é definido como 'encontro: a transformação da ação em acontecimento compartilhado'. O teatro não nasceu do nada — é a evolução de gestos humanos que buscavam explicar o mundo através da performance, partindo de rituais, cantos e danças ancestrais até a formalização cívica na Grécia."
+  },
+  {
+    "id": "companhia",
+    "title": "Sobre o trabalho e a Companhia das Máscaras Gregas",
+    "tags": ["companhia", "autores", "alunos", "trabalho acadêmico", "disciplina"],
+    "text": "Este site apresenta o trabalho acadêmico teórico 'O Nascimento do Teatro Grego e Como Isso Influencia o Mundo até Hoje', produzido pelos alunos do 2º ano A da Companhia das Máscaras Gregas (Ana Clara, Gabriel Morato, Isabela Porto e Maria Luiza da Silva), como requisito de avaliação da disciplina de Artes e História da Cultura Ocidental, em Divinópolis, Minas Gerais, 2026. O material inclui um trabalho teórico escrito, uma apresentação em slides, um vídeo/podcast explicativo apresentado por Gabriel Morato e Maria Luiza, e este agente de inteligência artificial para tirar dúvidas sobre o tema."
+  }
+]

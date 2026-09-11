@@ -384,18 +384,17 @@ toggle.addEventListener('click', function(){
   panel.hidden = !panel.hidden;
   if(!panel.hidden && !greeted){
     greeted = true;
-    addMsg(messages,'bot','Salve! 🎭 Sou o agente de IA da Companhia das Máscaras Gregas, com o Google Gemini. Pergunte sobre a origem do teatro, Dionísio, máscaras, tragédia, comédia, os dramaturgos ou o legado até hoje.');
+    addMsg(messages,'bot','Salve! 🎭 Sou o agente de IA da Companhia das Máscaras Gregas, com o Google Gemini. Na primeira pergunta vou pedir sua chave da API (fica só neste navegador). Pergunte sobre a origem do teatro, Dionísio, máscaras, tragédia, comédia, os dramaturgos ou o legado até hoje.');
   }
   if(!panel.hidden) field.focus();
 });
 panel.querySelector('.close').addEventListener('click', function(){ panel.hidden = true; });
 /* ---- Integração com o Google Gemini ----
-   Chave embutida direto no código a pedido do dono do site (uso
-   temporário, ~1 dia no ar). Isso expõe a chave a qualquer visitante —
-   revogue-a assim que o site sair do ar. */
+   Site estático: não há como esconder uma chave do lado do cliente
+   (um .env não é lido pelo navegador). Por isso a chave NÃO fica no
+   código — é pedida ao visitante e guardada só no localStorage dele. */
 var GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent';
 var GEMINI_KEY_STORE = 'gemini_api_key';
-var GEMINI_DEFAULT_KEY = 'AQ.Ab8RN6L1ufKTvv5NRND01UEx1LdKbDL7-th836rTLXGI5cvh0Q';
 var chatHistory = []; // [{role:'user'|'model', text}]
 
 function getGeminiKey(){ try { return localStorage.getItem(GEMINI_KEY_STORE) || ''; } catch(e){ return ''; } }
@@ -403,7 +402,9 @@ function setGeminiKey(v){ try { v ? localStorage.setItem(GEMINI_KEY_STORE, v) : 
 function ensureGeminiKey(){
   var k = getGeminiKey();
   if(k) return k;
-  return GEMINI_DEFAULT_KEY;
+  var entered = window.prompt('Cole sua chave da API do Google Gemini (guardada apenas neste navegador):');
+  if(entered){ entered = entered.trim(); setGeminiKey(entered); return entered; }
+  return '';
 }
 
 var GEMINI_SYSTEM =

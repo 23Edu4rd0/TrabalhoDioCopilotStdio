@@ -344,18 +344,103 @@ toggle.addEventListener('click', function(){
   panel.hidden = !panel.hidden;
   if(!panel.hidden && !greeted){
     greeted = true;
-    addMsg(messages,'bot','Salve! 🎭 Sou o agente de IA da Companhia das Máscaras Gregas. Pergunte sobre a origem do teatro, Dionísio, máscaras, tragédia, comédia, os dramaturgos ou o legado até hoje.');
+    addMsg(messages,'bot','Salve! 🎭 Sou o agente de IA da Companhia das Máscaras Gregas, agora com o Google Gemini. Na primeira pergunta vou pedir sua chave da API (fica só neste navegador). Pergunte sobre a origem do teatro, Dionísio, máscaras, tragédia, comédia, os dramaturgos ou o legado até hoje.');
   }
   if(!panel.hidden) field.focus();
 });
 panel.querySelector('.close').addEventListener('click', function(){ panel.hidden = true; });
+/* ---- Integração com o Google Gemini ----
+   A chave da API não fica no código (site estático a exporia a qualquer
+   visitante). Ela é pedida ao usuário e guardada só no localStorage.
+   Sem chave ou em caso de erro, cai no mecanismo local answer(). */
+var GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+var GEMINI_KEY_STORE = 'gemini_api_key';
+var chatHistory = []; // [{role:'user'|'model', text}]
+
+function getGeminiKey(){ try { return localStorage.getItem(GEMINI_KEY_STORE) || ''; } catch(e){ return ''; } }
+function setGeminiKey(v){ try { v ? localStorage.setItem(GEMINI_KEY_STORE, v) : localStorage.removeItem(GEMINI_KEY_STORE); } catch(e){} }
+function ensureGeminiKey(){
+  var k = getGeminiKey();
+  if(k) return k;
+  var entered = window.prompt('Cole sua chave da API do Google Gemini (guardada apenas neste navegador):');
+  if(entered){ entered = entered.trim(); setGeminiKey(entered); return entered; }
+  return '';
+}
+
+var GEMINI_SYSTEM =
+  'Você é o agente de IA da "Companhia das Máscaras Gregas", um trabalho escolar de Artes e ' +
+  'História da Cultura Ocidental sobre o teatro grego. Responda em português, de forma ' +
+  'didática, correta e objetiva (2 a 4 parágrafos no máximo). Baseie-se prioritariamente na ' +
+  'base de conhecimento do trabalho abaixo; se a pergunta fugir do tema do teatro grego, ' +
+  'responda brevemente e reconduza ao assunto.\n\n=== BASE DE CONHECIMENTO ===\n' +
+  KB.map(function(k){ return '- ' + k.title + ': ' + k.text; }).join('\n');
+
+function callGemini(key, question){
+  chatHistory.push({ role:'user', text: question });
+  var body = {
+    systemInstruction: { parts: [{ text: GEMINI_SYSTEM }] },
+    contents: chatHistory.map(function(t){ return { role: t.role, parts: [{ text: t.text }] }; }),
+    generationConfig: { temperature: 0.4 }
+  };
+  return fetch(GEMINI_URL + '?key=' + encodeURIComponent(key), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  }).then(function(res){
+    return res.json().then(function(data){
+      if(!res.ok){ throw new Error((data && data.error && data.error.message) || ('HTTP ' + res.status)); }
+      var parts = data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts;
+      var out = parts && parts.map(function(p){ return p.text || ''; }).join('').trim();
+      if(!out) throw new Error('resposta vazia do modelo');
+      chatHistory.push({ role:'model', text: out });
+      return out;
+    });
+  });
+}
+
 function ask(){
   var q = field.value.trim(); if(!q) return;
   addMsg(messages,'user',q); field.value='';
-  setTimeout(function(){ var r = answer(q); addMsg(messages,'bot',r.text,r.src); }, 250);
+
+  var key = ensureGeminiKey();
+  if(!key){
+    var r = answer(q);
+    addMsg(messages,'bot','(sem chave do Gemini — resposta da base local)\n\n' + r.text, r.src);
+    return;
+  }
+
+  field.disabled = true; sendBtn.disabled = true;
+  var pending = document.createElement('div');
+  pending.className = 'msg bot'; pending.textContent = '…';
+  messages.appendChild(pending); messages.scrollTop = messages.scrollHeight;
+
+  callGemini(key, q).then(function(reply){
+    pending.innerHTML = reply.replace(/\n/g,'<br><br>');
+  }).catch(function(err){
+    chatHistory.pop();
+    var r = answer(q);
+    pending.innerHTML = ('⚠️ Falha ao consultar o Gemini (' + err.message + '). Resposta da base local:').replace(/\n/g,'<br>')
+      + '<br><br>' + r.text.replace(/\n/g,'<br><br>');
+    if(r.src && r.src.length){ var s=document.createElement('span'); s.className='src'; s.textContent='📖 Fonte: '+r.src.join(' · '); pending.appendChild(s); }
+  }).then(function(){
+    field.disabled = false; sendBtn.disabled = false; field.focus();
+    messages.scrollTop = messages.scrollHeight;
+  });
 }
 sendBtn.addEventListener('click', ask);
 field.addEventListener('keydown', function(e){ if(e.key==='Enter') ask(); });
+
+var kbtn = document.createElement('button');
+kbtn.className = 'close'; kbtn.textContent = '🔑'; kbtn.title = 'Trocar/remover a chave do Gemini';
+kbtn.style.marginLeft = '0';
+kbtn.addEventListener('click', function(){
+  var cur = getGeminiKey();
+  var v = window.prompt('Chave da API do Gemini (vazio remove):', cur);
+  if(v === null) return;
+  setGeminiKey(v.trim());
+  addMsg(messages,'bot', v.trim() ? 'Chave atualizada.' : 'Chave removida — passo a responder pela base local.');
+});
+panel.querySelector('.ai-head').insertBefore(kbtn, panel.querySelector('.ai-head .close'));
 </script>
 </body>
 </html>

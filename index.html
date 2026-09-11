@@ -71,6 +71,10 @@ audio.media-player{margin-top:4px;}
 .paper table{width:100%;border-collapse:collapse;margin:18px 0;font-family:var(--sans);font-size:.86rem;}
 .paper th,.paper td{border:1px solid var(--line);padding:9px;text-align:left;vertical-align:top;}
 .paper th{background:var(--bg-alt);color:var(--gold-soft);}
+.pdf-block{margin-top:40px;border-top:1px solid var(--line);padding-top:24px;font-family:var(--sans);}
+.pdf-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:14px;color:var(--ink-dim);font-size:.9rem;}
+.pdf-frame{width:100%;height:80vh;min-height:480px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;}
+.pdf-fallback{text-align:center;color:var(--ink-dim);font-size:.82rem;margin-top:10px;}
 .slides-deck{display:flex;flex-direction:column;gap:16px;max-width:800px;margin:0 auto;}
 .slide{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;position:relative;}
 .slide .num{position:absolute;top:16px;right:20px;font-family:var(--serif);color:var(--line);font-size:1.5rem;}
@@ -233,7 +237,14 @@ footer.site{border-top:1px solid var(--line);padding:30px 0 40px;text-align:cent
             <tr><td>Desfecho</td><td>Catástrofe, morte, exílio</td><td>Reconciliação, festa, casamento</td></tr>
           </tbody>
         </table>
-        <p style="text-align:center;color:var(--ink-dim);font-family:var(--sans);font-size:.85rem;">(texto completo com 13 capítulos e referências bibliográficas no arquivo <code>teoria.html</code>)</p>
+        <div class="pdf-block">
+          <div class="pdf-bar">
+            <span>📄 Trabalho teórico completo — 18 páginas (PDF)</span>
+            <a class="btn gold" href="media/teoria.pdf" target="_blank" rel="noopener">Abrir / baixar</a>
+          </div>
+          <iframe class="pdf-frame" src="media/teoria.pdf#view=FitH" title="Trabalho teórico completo em PDF" loading="lazy"></iframe>
+          <p class="pdf-fallback">Não consegue ver o PDF acima? <a href="media/teoria.pdf" target="_blank" rel="noopener">Abra em uma nova aba</a>.</p>
+        </div>
       </article>
     </div>
   </section>

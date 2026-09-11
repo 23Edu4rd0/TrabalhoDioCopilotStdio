@@ -384,28 +384,17 @@ toggle.addEventListener('click', function(){
   panel.hidden = !panel.hidden;
   if(!panel.hidden && !greeted){
     greeted = true;
-    addMsg(messages,'bot','Salve! 🎭 Sou o agente de IA da Companhia das Máscaras Gregas, com o Google Gemini. Na primeira pergunta vou pedir sua chave da API (fica só neste navegador). Pergunte sobre a origem do teatro, Dionísio, máscaras, tragédia, comédia, os dramaturgos ou o legado até hoje.');
+    addMsg(messages,'bot','Salve! 🎭 Sou o agente de IA da Companhia das Máscaras Gregas, com o Google Gemini. Pergunte sobre a origem do teatro, Dionísio, máscaras, tragédia, comédia, os dramaturgos ou o legado até hoje.');
   }
   if(!panel.hidden) field.focus();
 });
 panel.querySelector('.close').addEventListener('click', function(){ panel.hidden = true; });
 /* ---- Integração com o Google Gemini ----
-   Site estático: não há como esconder uma chave do lado do cliente
-   (um .env não é lido pelo navegador). Por isso a chave NÃO fica no
-   código — é pedida ao visitante e guardada só no localStorage dele. */
-var GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent';
-var GEMINI_KEY_STORE = 'gemini_api_key';
+   O site chama um proxy (Cloudflare Worker) que guarda a chave do lado
+   do servidor. Ninguém precisa colar chave nenhuma; o navegador nunca
+   vê a chave real. */
+var GEMINI_PROXY_URL = 'https://trabalho-grecia-gemini-proxy.eduardo-vchaves23.workers.dev';
 var chatHistory = []; // [{role:'user'|'model', text}]
-
-function getGeminiKey(){ try { return localStorage.getItem(GEMINI_KEY_STORE) || ''; } catch(e){ return ''; } }
-function setGeminiKey(v){ try { v ? localStorage.setItem(GEMINI_KEY_STORE, v) : localStorage.removeItem(GEMINI_KEY_STORE); } catch(e){} }
-function ensureGeminiKey(){
-  var k = getGeminiKey();
-  if(k) return k;
-  var entered = window.prompt('Cole sua chave da API do Google Gemini (guardada apenas neste navegador):');
-  if(entered){ entered = entered.trim(); setGeminiKey(entered); return entered; }
-  return '';
-}
 
 var GEMINI_SYSTEM =
   'Você é o agente de IA da "Companhia das Máscaras Gregas", um trabalho escolar de Artes e ' +
@@ -415,14 +404,14 @@ var GEMINI_SYSTEM =
   'responda brevemente e reconduza ao assunto.\n\n=== BASE DE CONHECIMENTO ===\n' +
   KB.map(function(k){ return '- ' + k.title + ': ' + k.text; }).join('\n');
 
-function callGemini(key, question){
+function callGemini(question){
   chatHistory.push({ role:'user', text: question });
   var body = {
     systemInstruction: { parts: [{ text: GEMINI_SYSTEM }] },
     contents: chatHistory.map(function(t){ return { role: t.role, parts: [{ text: t.text }] }; }),
     generationConfig: { temperature: 0.4 }
   };
-  return fetch(GEMINI_URL + '?key=' + encodeURIComponent(key), {
+  return fetch(GEMINI_PROXY_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
@@ -442,24 +431,17 @@ function ask(){
   var q = field.value.trim(); if(!q) return;
   addMsg(messages,'user',q); field.value='';
 
-  var key = ensureGeminiKey();
-  if(!key){
-    var r = answer(q);
-    addMsg(messages,'bot','(sem chave do Gemini — resposta da base local)\n\n' + r.text, r.src);
-    return;
-  }
-
   field.disabled = true; sendBtn.disabled = true;
   var pending = document.createElement('div');
   pending.className = 'msg bot'; pending.textContent = '…';
   messages.appendChild(pending); messages.scrollTop = messages.scrollHeight;
 
-  callGemini(key, q).then(function(reply){
+  callGemini(q).then(function(reply){
     pending.innerHTML = reply.replace(/\n/g,'<br><br>');
   }).catch(function(err){
     chatHistory.pop();
     var r = answer(q);
-    pending.innerHTML = ('⚠️ Falha ao consultar o Gemini (' + err.message + '). Resposta da base local:').replace(/\n/g,'<br>')
+    pending.innerHTML = ('⚠️ Falha ao consultar o agente (' + err.message + '). Resposta da base local:').replace(/\n/g,'<br>')
       + '<br><br>' + r.text.replace(/\n/g,'<br><br>');
     if(r.src && r.src.length){ var s=document.createElement('span'); s.className='src'; s.textContent='📖 Fonte: '+r.src.join(' · '); pending.appendChild(s); }
   }).then(function(){
@@ -469,18 +451,6 @@ function ask(){
 }
 sendBtn.addEventListener('click', ask);
 field.addEventListener('keydown', function(e){ if(e.key==='Enter') ask(); });
-
-var kbtn = document.createElement('button');
-kbtn.className = 'close'; kbtn.textContent = '🔑'; kbtn.title = 'Trocar/remover a chave do Gemini';
-kbtn.style.marginLeft = '0';
-kbtn.addEventListener('click', function(){
-  var cur = getGeminiKey();
-  var v = window.prompt('Chave da API do Gemini (vazio remove):', cur);
-  if(v === null) return;
-  setGeminiKey(v.trim());
-  addMsg(messages,'bot', v.trim() ? 'Chave atualizada.' : 'Chave removida — passo a responder pela base local.');
-});
-panel.querySelector('.ai-head').insertBefore(kbtn, panel.querySelector('.ai-head .close'));
 </script>
 
 <script>

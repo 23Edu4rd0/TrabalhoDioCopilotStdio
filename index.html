@@ -113,6 +113,11 @@ footer.site{border-top:1px solid var(--line);padding:30px 0 40px;text-align:cent
 .msg.bot{background:var(--card);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:3px;}
 .msg.user{background:rgba(212,175,55,.16);color:var(--ink);align-self:flex-end;border-bottom-right-radius:3px;}
 .msg .src{display:block;margin-top:7px;font-size:.7rem;color:var(--gold-soft);}
+.msg.typing{display:flex;align-items:center;gap:4px;padding:12px 14px;}
+.msg.typing .dot{width:6px;height:6px;border-radius:50%;background:var(--gold-soft);opacity:.4;animation:typing-bounce 1.1s infinite;}
+.msg.typing .dot:nth-child(2){animation-delay:.15s;}
+.msg.typing .dot:nth-child(3){animation-delay:.3s;}
+@keyframes typing-bounce{0%,60%,100%{transform:translateY(0);opacity:.4;}30%{transform:translateY(-4px);opacity:1;}}
 .ai-suggestions{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 8px;}
 .chip{font-size:.72rem;padding:5px 9px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink-dim);cursor:pointer;}
 .chip:hover{border-color:var(--gold);color:var(--gold-soft);}
@@ -427,24 +432,31 @@ function callGemini(question){
   });
 }
 
+var busy = false;
 function ask(){
+  if(busy) return;
   var q = field.value.trim(); if(!q) return;
+  busy = true;
   addMsg(messages,'user',q); field.value='';
 
   field.disabled = true; sendBtn.disabled = true;
   var pending = document.createElement('div');
-  pending.className = 'msg bot'; pending.textContent = '…';
+  pending.className = 'msg bot typing';
+  pending.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
   messages.appendChild(pending); messages.scrollTop = messages.scrollHeight;
 
   callGemini(q).then(function(reply){
+    pending.classList.remove('typing');
     pending.innerHTML = reply.replace(/\n/g,'<br><br>');
   }).catch(function(err){
     chatHistory.pop();
     var r = answer(q);
+    pending.classList.remove('typing');
     pending.innerHTML = ('⚠️ Falha ao consultar o agente (' + err.message + '). Resposta da base local:').replace(/\n/g,'<br>')
       + '<br><br>' + r.text.replace(/\n/g,'<br><br>');
     if(r.src && r.src.length){ var s=document.createElement('span'); s.className='src'; s.textContent='📖 Fonte: '+r.src.join(' · '); pending.appendChild(s); }
   }).then(function(){
+    busy = false;
     field.disabled = false; sendBtn.disabled = false; field.focus();
     messages.scrollTop = messages.scrollHeight;
   });

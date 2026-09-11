@@ -5,8 +5,11 @@ const ALLOWED_ORIGINS = new Set([
   "https://23edu4rd0.github.io",
 ]);
 
-const GEMINI_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent";
+const MODELS = ["gemini-3.6-flash", "gemini-flash-lite-latest"];
+// Tenta o modelo principal; se sobrecarregado (429/503), cai pro "lite".
+function urlFor(model) {
+  return `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+}
 
 function corsHeaders(origin) {
   const allow = ALLOWED_ORIGINS.has(origin) ? origin : "https://23edu4rd0.github.io";
@@ -52,15 +55,23 @@ export default {
       });
     }
 
-    const upstream = await fetch(`${GEMINI_URL}?key=${env.GEMINI_API_KEY}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body,
-    });
+    let lastStatus = 502;
+    let lastBody = JSON.stringify({ error: "falha ao consultar o Gemini" });
 
-    const respBody = await upstream.text();
-    return new Response(respBody, {
-      status: upstream.status,
+    for (let i = 0; i < MODELS.length; i++) {
+      const upstream = await fetch(`${urlFor(MODELS[i])}?key=${env.GEMINI_API_KEY}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body,
+      });
+      lastStatus = upstream.status;
+      lastBody = await upstream.text();
+      const overloaded = upstream.status === 429 || upstream.status === 503;
+      if (upstream.ok || !overloaded || i === MODELS.length - 1) break;
+    }
+
+    return new Response(lastBody, {
+      status: lastStatus,
       headers: { ...headers, "Content-Type": "application/json" },
     });
   },

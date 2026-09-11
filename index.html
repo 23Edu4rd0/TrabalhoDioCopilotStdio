@@ -1,105 +1,361 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trabalho Grécia — Criando Agentes de IA com Microsoft Copilot Studio</title>
-  <meta name="description" content="Registro acadêmico das atividades do curso da DIO sobre criação e personalização de chatbots e agentes de IA com o Microsoft Copilot Studio e a Power Platform." />
-  <link rel="stylesheet" href="assets/styles.css" />
-  <script src="assets/chatbot.js" defer></script>
-</head>
-<body>
-  <header class="site-header">
-    <div class="container">
-      <p class="eyebrow">Trabalho Grécia · DIO</p>
-      <h1>Trabalho Grécia — Criando Agentes de IA com o Microsoft Copilot Studio</h1>
-      <p class="subtitle">
-        Registro das atividades práticas sobre configuração, criação e personalização
-        de chatbots e agentes de IA na Power Platform.
-      </p>
-      <dl class="meta">
-        <div><dt>Autor</dt><dd>Eduardo V. Chaves</dd></div>
-        <div><dt>Disciplina</dt><dd>Copilot Studio / Power Platform</dd></div>
-        <div><dt>Data</dt><dd>Setembro de 2026</dd></div>
-      </dl>
-    </div>
-  </header>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Companhia das Máscaras Gregas</title>
+<style>
+:root{
+  --bg:#0f1320; --bg-alt:#171c2e; --card:#1c2238;
+  --gold:#d4af37; --gold-soft:#e8cf7a;
+  --ink:#f2ede1; --ink-dim:#b9b6c9; --line:#2c3350;
+  --tragedy:#b5342f; --comedy:#2f8f6f;
+  --radius:14px;
+  --serif:"Georgia","Iowan Old Style","Times New Roman",serif;
+  --sans:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:radial-gradient(ellipse at top,#1a2036 0%,var(--bg) 55%);color:var(--ink);font-family:var(--sans);line-height:1.6;padding:0 16px;}
+img{max-width:100%;display:block;}
+a{color:var(--gold-soft);}
+.wrap{max-width:1080px;margin:0 auto;padding:0 4px;}
+header.site{position:sticky;top:0;z-index:50;background:rgba(15,19,32,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin:0 -16px;}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;max-width:1080px;margin:0 auto;gap:16px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:1.05rem;color:var(--ink);text-decoration:none;}
+.brand svg{width:28px;height:28px;flex:none;}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;}
+.tab-btn{color:var(--ink-dim);background:none;border:none;font-size:.92rem;padding:8px 12px;border-radius:999px;cursor:pointer;font-family:var(--sans);transition:background .2s,color .2s;}
+.tab-btn:hover{background:rgba(212,175,55,.1);color:var(--gold-soft);}
+.tab-btn.active{background:rgba(212,175,55,.14);color:var(--gold-soft);}
+.hero{padding:56px 0 34px;text-align:center;}
+.hero .kicker{text-transform:uppercase;letter-spacing:3px;font-size:.72rem;color:var(--gold);margin-bottom:14px;}
+.hero h1{font-family:var(--serif);font-size:clamp(1.8rem,5vw,3rem);margin:0 0 16px;line-height:1.15;}
+.hero h1 em{color:var(--gold-soft);font-style:normal;}
+.hero p.lead{max-width:640px;margin:0 auto 24px;color:var(--ink-dim);font-size:1.04rem;}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;border:1px solid transparent;cursor:pointer;background:none;font-family:var(--sans);}
+.btn.gold{background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:#201703;box-shadow:0 8px 20px rgba(212,175,55,.25);}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--ink);}
+.masks-row{display:flex;justify-content:center;gap:24px;margin:30px 0 6px;}
+.masks-row svg{width:60px;height:60px;opacity:.9;}
+section{padding:44px 0;border-top:1px solid var(--line);}
+section:first-of-type{border-top:none;}
+.section-head{max-width:680px;margin:0 auto 28px;text-align:center;}
+.section-head .eyebrow{text-transform:uppercase;letter-spacing:2.5px;font-size:.7rem;color:var(--gold);}
+.section-head h2{font-family:var(--serif);font-size:clamp(1.35rem,3.2vw,1.9rem);margin:8px 0 8px;text-wrap:balance;}
+.section-head p{color:var(--ink-dim);margin:0;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;}
+.card h3{margin:0 0 8px;font-family:var(--serif);font-size:1.05rem;color:var(--gold-soft);}
+.card p{margin:0;color:var(--ink-dim);font-size:.92rem;}
+.media-block{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start;}
+@media (max-width:720px){.media-block{grid-template-columns:1fr;}}
+.video-fallback{width:100%;aspect-ratio:16/9;border-radius:var(--radius);border:1px solid var(--line);background:linear-gradient(135deg,#12070a,#1c2238);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--ink-dim);text-align:center;padding:20px;}
+.video-fallback .play{width:56px;height:56px;border-radius:50%;background:rgba(212,175,55,.16);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--gold-soft);}
+.podcast-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;}
+.podcast-card h3{font-family:var(--serif);margin:0 0 6px;color:var(--gold-soft);}
+.podcast-card p{color:var(--ink-dim);font-size:.88rem;margin:0 0 12px;}
+.fake-audio{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;}
+.fake-audio .play{width:30px;height:30px;border-radius:50%;background:var(--gold);color:#201703;border:none;font-size:.8rem;cursor:pointer;}
+.fake-audio .bar{flex:1;height:4px;border-radius:2px;background:var(--line);position:relative;overflow:hidden;}
+.fake-audio .bar::after{content:"";position:absolute;left:0;top:0;bottom:0;width:22%;background:var(--gold-soft);}
+.fake-audio .time{font-size:.75rem;color:var(--ink-dim);font-variant-numeric:tabular-nums;}
+.paper{max-width:760px;margin:0 auto;font-family:var(--serif);font-size:1.02rem;}
+.paper h2{font-family:var(--serif);color:var(--gold-soft);margin-top:38px;border-bottom:1px solid var(--line);padding-bottom:8px;}
+.paper h3{color:var(--ink);margin-top:24px;}
+.paper blockquote{margin:20px 0;padding:14px 18px;border-left:3px solid var(--gold);background:rgba(212,175,55,.06);font-style:italic;color:var(--ink-dim);}
+.paper .authors{text-align:center;color:var(--ink-dim);font-family:var(--sans);margin-bottom:34px;}
+.paper table{width:100%;border-collapse:collapse;margin:18px 0;font-family:var(--sans);font-size:.86rem;}
+.paper th,.paper td{border:1px solid var(--line);padding:9px;text-align:left;vertical-align:top;}
+.paper th{background:var(--bg-alt);color:var(--gold-soft);}
+.slides-deck{display:flex;flex-direction:column;gap:16px;max-width:800px;margin:0 auto;}
+.slide{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;position:relative;}
+.slide .num{position:absolute;top:16px;right:20px;font-family:var(--serif);color:var(--line);font-size:1.5rem;}
+.slide .presenter{font-size:.7rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);margin-bottom:8px;}
+.slide h3{font-family:var(--serif);font-size:1.25rem;margin:0 0 10px;color:var(--ink);text-wrap:balance;}
+.slide p.quote{font-style:italic;color:var(--gold-soft);margin:10px 0 0;}
+footer.site{border-top:1px solid var(--line);padding:30px 0 40px;text-align:center;color:var(--ink-dim);font-size:.82rem;}
+#ai-toggle{position:fixed;bottom:20px;right:20px;z-index:100;width:56px;height:56px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:#201703;font-size:1.4rem;cursor:pointer;box-shadow:0 10px 26px rgba(212,175,55,.35);}
+#ai-panel{position:fixed;bottom:88px;right:20px;z-index:100;width:min(360px,calc(100vw - 32px));max-height:min(520px,calc(100vh - 130px));background:var(--bg-alt);border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5);display:flex;flex-direction:column;overflow:hidden;}
+#ai-panel[hidden]{display:none;}
+.ai-head{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px;background:var(--card);}
+.ai-head .dot{width:8px;height:8px;border-radius:50%;background:#37d17c;box-shadow:0 0 6px #37d17c;}
+.ai-head strong{font-family:var(--serif);font-size:.95rem;}
+.ai-head span.sub{display:block;font-size:.7rem;color:var(--ink-dim);}
+.ai-head button.close{margin-left:auto;background:none;border:none;color:var(--ink-dim);font-size:1.05rem;cursor:pointer;}
+.ai-messages{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px;font-size:.87rem;}
+.msg{max-width:92%;padding:9px 12px;border-radius:12px;line-height:1.5;}
+.msg.bot{background:var(--card);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:3px;}
+.msg.user{background:rgba(212,175,55,.16);color:var(--ink);align-self:flex-end;border-bottom-right-radius:3px;}
+.msg .src{display:block;margin-top:7px;font-size:.7rem;color:var(--gold-soft);}
+.ai-suggestions{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 8px;}
+.chip{font-size:.72rem;padding:5px 9px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink-dim);cursor:pointer;}
+.chip:hover{border-color:var(--gold);color:var(--gold-soft);}
+.ai-input{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);background:var(--card);}
+.ai-input input{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 11px;color:var(--ink);font-size:.87rem;}
+.ai-input input:focus{outline:1px solid var(--gold);}
+.ai-input button{background:var(--gold);border:none;border-radius:10px;padding:0 14px;font-weight:700;cursor:pointer;color:#201703;}
+.preview-note{max-width:1080px;margin:14px auto 0;padding:10px 16px;background:rgba(212,175,55,.08);border:1px solid var(--line);border-radius:10px;color:var(--ink-dim);font-size:.8rem;text-align:center;}
+</style>
 
-  <nav class="toc">
-    <div class="container">
-      <a href="#introducao">Introdução</a>
-      <a href="#trabalho-1">Trabalho 1</a>
-      <a href="#trabalho-2">Trabalho 2</a>
-      <a href="#conclusao">Conclusão</a>
+<div class="preview-note">Prévia do site (uma página com abas, para visualização rápida). No repositório real são 3 páginas separadas e o vídeo de fato está embutido — aqui a versão só mostra um placeholder porque o arquivo é grande demais para esta prévia.</div>
+
+<header class="site">
+  <nav class="nav">
+    <a class="brand" href="#" onclick="return false;">
+      <svg viewBox="0 0 64 64" fill="none"><path d="M32 6C18 6 8 16 8 28c0 8 4 12 4 18 0 6 6 10 12 8 2-1 3-3 5-3s3 2 5 3c6 2 12-2 12-8 0-6 4-10 4-18C56 16 46 6 32 6Z" stroke="#d4af37" stroke-width="2"/><circle cx="24" cy="26" r="3" fill="#d4af37"/><circle cx="40" cy="26" r="3" fill="#d4af37"/><path d="M24 40c3 3 13 3 16 0" stroke="#d4af37" stroke-width="2" stroke-linecap="round"/></svg>
+      Companhia das Máscaras Gregas
+    </a>
+    <div class="tabs" id="tabs">
+      <button class="tab-btn active" data-tab="inicio">Início</button>
+      <button class="tab-btn" data-tab="teoria">Trabalho Teórico</button>
+      <button class="tab-btn" data-tab="slides">Slides</button>
     </div>
   </nav>
+</header>
 
-  <main class="container">
-    <section id="introducao">
-      <h2>Introdução</h2>
-      <p>
-        Este trabalho reúne as anotações e aprendizados obtidos durante as atividades
-        práticas do curso, cujo objetivo foi compreender o ciclo completo de criação de
-        um assistente virtual: desde a preparação do ambiente na Microsoft 365 e na
-        Power Platform, passando pelas diferentes abordagens de construção de um Copilot,
-        até a personalização detalhada de tópicos, respostas e tratamento de erros.
-      </p>
-    </section>
-
-    <section id="trabalho-1">
-      <h2>Trabalho 1 — Primeiro chatbot e o ambiente</h2>
-      <p>
-        Ao criar meu primeiro chatbot, aprendi a configurar e conectar uma conta no
-        Microsoft 365, essencial para usar as ferramentas da Power Platform. Também
-        aprendi diferentes formas de criar um Copilot: com modelos prontos, com prompts
-        de IA personalizados e com um chatbot construído do zero. Vi como criar IAs que
-        podem ajudar tanto em produtividade quanto em ações básicas de trabalho.
-      </p>
-      <h3>Pontos-chave</h3>
-      <ul>
-        <li>Configuração e conexão de uma conta Microsoft 365.</li>
-        <li>Acesso e navegação pelas ferramentas da Power Platform.</li>
-        <li>Três abordagens de criação: modelos prontos, prompts de IA e construção do zero.</li>
-        <li>Aplicações voltadas à produtividade e a tarefas operacionais do dia a dia.</li>
-      </ul>
-    </section>
-
-    <section id="trabalho-2">
-      <h2>Trabalho 2 — Personalização do chatbot</h2>
-      <p>
-        Ao trabalhar na personalização do meu chatbot, aprendi como customizar tópicos
-        para atender às necessidades específicas dos usuários, definindo respostas
-        personalizadas e ajustando interações. Também explorei como personalizar
-        mensagens de erro dentro dos tópicos, garantindo que o usuário recebesse
-        orientações claras em caso de problemas. Além disso, aprendi a ajustar a
-        qualidade das respostas, tanto aumentando para fornecer detalhes mais completos
-        quanto diminuindo para respostas mais objetivas e rápidas.
-      </p>
-      <h3>Pontos-chave</h3>
-      <ul>
-        <li>Customização de tópicos conforme a necessidade do usuário.</li>
-        <li>Definição de respostas personalizadas e ajuste das interações.</li>
-        <li>Personalização de mensagens de erro para orientações claras.</li>
-        <li>Controle da qualidade das respostas: mais detalhadas ou mais objetivas.</li>
-      </ul>
-    </section>
-
-    <section id="conclusao">
-      <h2>Conclusão</h2>
-      <p>
-        As atividades permitiram compreender, na prática, que a construção de um agente
-        de IA eficaz não se limita à sua criação inicial: depende igualmente da
-        preparação correta do ambiente e de um trabalho contínuo de personalização.
-        Ajustar tópicos, respostas e mensagens de erro é o que aproxima o assistente das
-        expectativas reais de quem o utiliza.
-      </p>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>Trabalho acadêmico desenvolvido como parte do curso da DIO · 2026</p>
+<main id="tab-inicio">
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker">Artes &amp; História da Cultura Ocidental · Divinópolis, MG · 2026</p>
+      <h1>O nascimento do <em>teatro grego</em><br>e sua influência até hoje</h1>
+      <p class="lead">Como o teatro grego transformou a maneira como os seres humanos contam histórias, representam conflitos e refletem sobre a sociedade? Este site reúne o trabalho teórico, a apresentação em slides, o vídeo/podcast da equipe e um agente de IA para tirar suas dúvidas.</p>
+      <div class="hero-actions">
+        <a class="btn gold" href="#midia">▶ Assistir e ouvir</a>
+        <button class="btn ghost" data-tab="teoria">Ler o trabalho teórico</button>
+        <button class="btn ghost" data-tab="slides">Ver os slides</button>
+      </div>
+      <div class="masks-row" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#b5342f" stroke-width="3"/><circle cx="36" cy="42" r="4" fill="#b5342f"/><circle cx="64" cy="42" r="4" fill="#b5342f"/><path d="M32 68c6-10 30-10 36 0" stroke="#b5342f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#2f8f6f" stroke-width="3"/><circle cx="36" cy="42" r="4" fill="#2f8f6f"/><circle cx="64" cy="42" r="4" fill="#2f8f6f"/><path d="M32 62c6 10 30 10 36 0" stroke="#2f8f6f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+      </div>
     </div>
-  </footer>
+  </section>
+
+  <section id="tema">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">O tema</p>
+        <h2>Uma celebração que virou linguagem</h2>
+        <p>Questão central: como o teatro grego transformou a maneira como os seres humanos contam histórias, representam conflitos e refletem sobre a sociedade?</p>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>Da religião ao palco</h3><p>O teatro nasceu das celebrações a Dionísio e dos cantos corais (ditirambos). Téspis, ao se destacar do coro para dialogar sozinho, deu origem ao primeiro ator.</p></div>
+        <div class="card"><h3>Tragédia e comédia</h3><p>A tragédia explorava o destino e a queda dos heróis; a comédia usava o riso como arma de crítica social — dois espelhos complementares da condição humana.</p></div>
+        <div class="card"><h3>Um legado vivo</h3><p>Estrutura em atos, catarse, arco do personagem e alívio cômico seguem presentes no cinema, nas séries e na ideia de nos reunirmos para assistir juntos.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="midia">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Vídeo &amp; Podcast</p>
+        <h2>Assista e ouça a explicação da equipe</h2>
+        <p>Apresentado por Gabriel Morato e Maria Luíza. O mesmo áudio pode ser ouvido separadamente, em formato podcast.</p>
+      </div>
+      <div class="media-block">
+        <div class="video-fallback">
+          <div class="play">▶</div>
+          <strong style="color:var(--ink);font-family:var(--serif);">apresentacao.mp4</strong>
+          <span>Vídeo real embutido no site publicado (26&nbsp;MB) — placeholder nesta prévia</span>
+        </div>
+        <div class="podcast-card">
+          <h3>🎧 Versão podcast</h3>
+          <p>Prefere só escutar? O áudio da apresentação, para ouvir enquanto lê o trabalho ou os slides.</p>
+          <div class="fake-audio">
+            <button class="play">▶</button>
+            <div class="bar"></div>
+            <span class="time">2:14 / 9:40</span>
+          </div>
+          <p style="margin-top:12px;color:var(--ink-dim);font-size:.85rem;">Roteiro: origem dionisíaca · nascimento do ator com Téspis · máscaras e coro · tragédia x comédia · dramaturgos · arquitetura · legado até hoje.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ia-info">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Agente de IA</p>
+        <h2>Tire suas dúvidas com o agente da Companhia</h2>
+        <p>Clique no ícone de máscara no canto da tela 🎭 para conversar. As respostas vêm do banco de dados construído com o trabalho teórico e os slides.</p>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>Pergunte sobre origem</h3><p>"Quem foi Dionísio?" ou "Como surgiu o primeiro ator?"</p></div>
+        <div class="card"><h3>Pergunte sobre os gêneros</h3><p>"Qual a diferença entre tragédia e comédia?"</p></div>
+        <div class="card"><h3>Pergunte sobre o legado</h3><p>"O que do teatro grego existe até hoje?"</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<main id="tab-teoria" hidden>
+  <section>
+    <div class="wrap">
+      <article class="paper">
+        <p class="eyebrow" style="text-align:center;color:#d4af37;letter-spacing:2px;text-transform:uppercase;font-size:.72rem;">Trabalho acadêmico teórico</p>
+        <h1 style="text-align:center;font-family:var(--serif);font-size:clamp(1.4rem,4vw,2.1rem);text-wrap:balance;">O Nascimento do Teatro Grego e Como Isso Influencia o Mundo até Hoje</h1>
+        <p class="authors">Ana Clara · Gabriel Morato · Isabela Porto · Maria Luiza da Silva<br>Companhia das Máscaras Gregas — 2º Ano A · Divinópolis, MG, 2026</p>
+
+        <h2>1. Introdução</h2>
+        <p>O teatro grego constitui uma das mais importantes criações culturais da Antiguidade. Não aconteceu de maneira repentina nem pode ser atribuído a uma única pessoa: foi resultado de um processo histórico em que religião, poesia, música, dança, festas públicas, mitologia e vida política se combinaram em uma nova forma de expressão.</p>
+        <p>O desenvolvimento do teatro ocorreu principalmente em Atenas, no século VI a.C., ligado às celebrações em homenagem a Dionísio. Entre essas festividades, destacava-se a Grande Dionísia, que incluía procissões, sacrifícios, apresentações corais e competições dramáticas no Teatro de Dionísio, na encosta sul da Acrópole.</p>
+        <blockquote>Síntese teórica: o teatro grego não emergiu como simples entretenimento, mas como resultado da convergência entre a ritualística comunitária e a necessidade de institucionalizar um espaço cívico para o debate dos dilemas éticos, políticos e existenciais da polis.</blockquote>
+
+        <h2>2. A religião e as origens do drama</h2>
+        <p>Dionísio era associado à alteridade, ao êxtase, ao vinho e à transformação. O coro entoava o ditirambo em sua honra; o salto para o drama ocorreu quando um integrante do coro se destacou para dialogar com o grupo. A tradição atribui a Téspis o papel de primeiro ator — daí a palavra "tespiano".</p>
+
+        <h2>5. As máscaras e sua relevância simbólica</h2>
+        <p>A máscara (<em>prosopon</em>) permitia a um mesmo ator assumir múltiplos papéis instantaneamente e viabilizava a interpretação de personagens femininas por um elenco exclusivamente masculino.</p>
+        <blockquote>Pesquisas contemporâneas contestam o mito de que a boca das máscaras amplificava a voz como um alto-falante: sua função era visual, simbólica e tipológica — não acústica.</blockquote>
+
+        <h2>8. Tragédia vs. comédia: uma comparação estética</h2>
+        <table>
+          <thead><tr><th>Elemento</th><th>Tragédia grega</th><th>Comédia grega</th></tr></thead>
+          <tbody>
+            <tr><td>Personagens</td><td>Reis, heróis, deuses</td><td>Cidadãos comuns, políticos ridicularizados</td></tr>
+            <tr><td>Efeito psicológico</td><td>Catarse (compaixão e temor)</td><td>Riso libertador</td></tr>
+            <tr><td>Desfecho</td><td>Catástrofe, morte, exílio</td><td>Reconciliação, festa, casamento</td></tr>
+          </tbody>
+        </table>
+        <p style="text-align:center;color:var(--ink-dim);font-family:var(--sans);font-size:.85rem;">(texto completo com 13 capítulos e referências bibliográficas no arquivo <code>teoria.html</code>)</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<main id="tab-slides" hidden>
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Apresentação</p>
+        <h2>Slides usados no vídeo/podcast</h2>
+        <p>Apresentado por Gabriel Morato e Maria Luíza (mostrando 4 de 28 slides nesta prévia).</p>
+      </div>
+      <div class="slides-deck">
+        <div class="slide"><span class="num">01</span>
+          <div class="presenter">Apresentadora: Maria Luíza</div>
+          <h3>O que entendemos por teatro?</h3>
+          <p>Corpo (a ferramenta da ação) · Voz (o veículo do texto) · Espaço (o lugar do encontro) · Público (a testemunha necessária).</p>
+          <p class="quote">"Teatro é encontro: a transformação da ação em acontecimento compartilhado."</p>
+        </div>
+        <div class="slide"><span class="num">03</span>
+          <div class="presenter">Apresentador: Gabriel Morato</div>
+          <h3>Onde surgiu o teatro grego? Atenas, Ática</h3>
+          <p class="quote">"Onde o sagrado encontra o palco." — 37.9838° N, 23.7275° E</p>
+        </div>
+        <div class="slide"><span class="num">09</span>
+          <div class="presenter">Apresentador: Gabriel Morato</div>
+          <h3>O pioneiro: Téspis e o primeiro ator</h3>
+          <p class="quote">"O nascimento da presença individual no palco."</p>
+        </div>
+        <div class="slide"><span class="num">28</span>
+          <div class="presenter">Gabriel Morato · Maria Luíza</div>
+          <h3>Conclusão</h3>
+          <p class="quote">Muda o palco. Permanece o encontro.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">Companhia das Máscaras Gregas — 2º Ano A · Artes e História da Cultura Ocidental · Divinópolis, MG, 2026<br>Ana Clara · Gabriel Morato · Isabela Porto · Maria Luiza da Silva</div>
+</footer>
+
+<script>
+document.querySelectorAll('[data-tab]').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var target = btn.dataset.tab;
+    document.querySelectorAll('#tabs .tab-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.tab === target); });
+    ['inicio','teoria','slides'].forEach(function(t){
+      document.getElementById('tab-'+t).hidden = (t !== target);
+    });
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+</script>
+
+<script>
+var KB = [
+  {title:"Introdução ao tema", tags:["introdução","tema","resumo","pesquisa"], text:"A questão central da pesquisa é: como o teatro grego transformou a maneira como os seres humanos contam histórias, representam conflitos e refletem sobre a sociedade? O teatro não nasceu de repente: foi resultado de um processo que uniu religião, poesia, música, dança e vida política."},
+  {title:"Religião e origens do drama", tags:["dionísio","religião","téspis","ditirambo","grande dionísia"], text:"O teatro surgiu ligado às celebrações a Dionísio, deus do êxtase e da transformação. A Grande Dionísia reunia procissões, sacrifícios e competições dramáticas. Téspis é tradicionalmente reconhecido como o primeiro ator, ao se destacar do coro para dialogar sozinho — daí a palavra 'tespiano'."},
+  {title:"Tragédia versus comédia", tags:["tragédia","comédia","catarse","riso","diferença"], text:"A tragédia trata do destino e da queda do herói, gerando catarse por compaixão e temor, em tom solene. A comédia trata da vida cotidiana, usando riso e crítica social, em tom irreverente. O desfecho trágico é catástrofe; o cômico é reconciliação e festa."},
+  {title:"Arquitetura e espaço teatral", tags:["theatron","orchestra","skene","parodoi","mechane","deus ex machina"], text:"O theatron eram as arquibancadas semicirculares; a orchestra, a área circular do coro; a skēnē, a construção de apoio ao fundo; os parodoi, as entradas laterais. A mechanē (guindaste) fazia atores 'voarem' como deuses, origem da expressão 'deus ex machina'."},
+  {title:"As máscaras", tags:["máscara","prosopon","atores homens"], text:"A máscara (prosopon) permitia trocar instantaneamente de personagem e viabilizava a interpretação de mulheres por um elenco masculino. Pesquisas atuais contestam que ela amplificasse a voz: sua função era visual e simbólica, não acústica."},
+  {title:"Ésquilo, o pai da tragédia", tags:["ésquilo","oresteia","segundo ator"], text:"Ésquilo introduziu o segundo ator, criando o conflito direto entre indivíduos. Sua trilogia Oresteia narra a vingança na Casa de Átreu e termina com a criação de um tribunal, simbolizando a passagem da vingança de sangue para a justiça institucional."},
+  {title:"Sófocles", tags:["sófocles","édipo rei","antígona","hamartia"], text:"Sófocles introduziu o terceiro ator. Em Édipo Rei, o herói tenta fugir do destino e é justamente isso que o cumpre (ironia trágica, hamartia). Em Antígona, mostra o choque entre o dever moral e a lei do Estado."},
+  {title:"Eurípides", tags:["eurípides","medeia","realismo psicológico"], text:"Eurípides antecipou o realismo psicológico, criando heróis com paixões e contradições. Em Medeia, expõe a opressão feminina; também criticava os deuses tradicionais e dava voz aos marginalizados."},
+  {title:"Aristóteles e a Poética", tags:["aristóteles","catarse","mímesis","peripécia","anagnórise"], text:"Aristóteles definiu a catarse como purificação emocional via piedade e terror, a peripécia como reviravolta da sorte e a anagnórise como o momento de reconhecimento da verdade. Para ele, a poesia representa o que poderia acontecer, sendo mais filosófica que a história."},
+  {title:"Aristófanes", tags:["aristófanes","lisístrata","parábase"], text:"Aristófanes usava a comédia como tribuna cívica, ridicularizando políticos e a guerra. Em Lisístrata, mulheres fazem greve de sexo pela paz. A parábase era o momento em que o coro falava diretamente ao público."},
+  {title:"Atores e coro", tags:["ator","coro","hypokritai","corego"], text:"Os atores (hypokritai) eram profissionais respeitados. O coro, de 12 a 24 integrantes, funcionava como consciência coletiva, alertando contra a hybris e comentando os acontecimentos. O corego financiava a produção como dever cívico."},
+  {title:"Música no teatro grego", tags:["música","aulos","dança"], text:"O espetáculo grego unia palavra, música e dança. O aulos, instrumento de sopro, acompanhava o coro. Diferentes modos musicais despertavam emoções específicas no público."},
+  {title:"O legado até hoje", tags:["legado","cinema","hoje","influência"], text:"A estrutura em atos, o arco do personagem, a catarse e a anagnórise seguem na base do cinema e das séries. O teatro ensinou que a arte é uma necessidade cívica de refletir coletivamente."}
+];
+function norm(s){return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9\s]/g," ");}
+var STOP = new Set(["a","o","as","os","de","da","do","das","dos","e","em","um","uma","que","qual","como","por","para","com","sobre","sua","seu","e","foi","era","sao","ser","no","na","se","ao","teatro","porque","quem","quando","onde"]);
+function tok(s){return norm(s).split(/\s+/).filter(function(w){return w.length>2 && !STOP.has(w);});}
+function answer(q){
+  var qt = tok(q);
+  if(!qt.length) return {text:"Pode reformular a pergunta?", src:[]};
+  var scored = KB.map(function(item){
+    var bag = tok(item.title+" "+item.tags.join(" ")+" "+item.text);
+    var freq = {}; bag.forEach(function(t){freq[t]=(freq[t]||0)+1;});
+    var score = 0;
+    qt.forEach(function(w){
+      if(freq[w]) score += freq[w];
+      item.tags.forEach(function(tag){ tag=norm(tag); if(tag.indexOf(w)>-1||w.indexOf(tag)>-1) score+=2; });
+      if(norm(item.title).indexOf(w)>-1) score+=3;
+    });
+    return {item:item, score:score};
+  }).filter(function(s){return s.score>0;}).sort(function(a,b){return b.score-a.score;});
+  if(!scored.length) return {text:"Não encontrei isso na base de conhecimento (nesta prévia ela tem só 13 dos 18 tópicos do site real). Tente perguntar sobre Dionísio, máscaras, tragédia, comédia, os dramaturgos ou o legado do teatro grego.", src:[]};
+  var top = scored.slice(0,1);
+  return {text: top.map(function(s){return s.item.text;}).join("\n\n"), src: top.map(function(s){return s.item.title;})};
+}
+function addMsg(container, role, text, src){
+  var msg = document.createElement('div');
+  msg.className = 'msg '+role;
+  msg.innerHTML = text.replace(/\n/g,'<br><br>');
+  if(src && src.length){ var s=document.createElement('span'); s.className='src'; s.textContent='📖 Fonte: '+src.join(' · '); msg.appendChild(s); }
+  container.appendChild(msg);
+  container.scrollTop = container.scrollHeight;
+}
+var toggle = document.createElement('button');
+toggle.id='ai-toggle'; toggle.textContent='🎭'; toggle.setAttribute('aria-label','Abrir agente de IA');
+document.body.appendChild(toggle);
+var panel = document.createElement('div');
+panel.id='ai-panel'; panel.hidden = true;
+panel.innerHTML = '<div class="ai-head"><span class="dot"></span><div><strong>Agente da Companhia</strong><span class="sub">Responde com base no trabalho e nos slides</span></div><button class="close" aria-label="Fechar">✕</button></div><div class="ai-messages" id="ai-messages"></div><div class="ai-suggestions" id="ai-suggestions"></div><div class="ai-input"><input id="ai-field" type="text" placeholder="Pergunte sobre o teatro grego..." autocomplete="off"/><button id="ai-send">Enviar</button></div>';
+document.body.appendChild(panel);
+var messages = panel.querySelector('#ai-messages');
+var suggestionsBox = panel.querySelector('#ai-suggestions');
+var field = panel.querySelector('#ai-field');
+var sendBtn = panel.querySelector('#ai-send');
+['Quem foi Téspis?','Para que servia a máscara?','O que é catarse?','Tragédia x comédia?'].forEach(function(s){
+  var chip = document.createElement('button'); chip.className='chip'; chip.textContent=s;
+  chip.addEventListener('click', function(){ field.value = s; ask(); });
+  suggestionsBox.appendChild(chip);
+});
+var greeted = false;
+toggle.addEventListener('click', function(){
+  panel.hidden = !panel.hidden;
+  if(!panel.hidden && !greeted){
+    greeted = true;
+    addMsg(messages,'bot','Salve! 🎭 Sou o agente de IA da Companhia das Máscaras Gregas. Pergunte sobre a origem do teatro, Dionísio, máscaras, tragédia, comédia, os dramaturgos ou o legado até hoje.');
+  }
+  if(!panel.hidden) field.focus();
+});
+panel.querySelector('.close').addEventListener('click', function(){ panel.hidden = true; });
+function ask(){
+  var q = field.value.trim(); if(!q) return;
+  addMsg(messages,'user',q); field.value='';
+  setTimeout(function(){ var r = answer(q); addMsg(messages,'bot',r.text,r.src); }, 250);
+}
+sendBtn.addEventListener('click', ask);
+field.addEventListener('keydown', function(e){ if(e.key==='Enter') ask(); });
+</script>
 </body>
 </html>

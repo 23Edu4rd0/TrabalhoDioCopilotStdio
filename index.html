@@ -390,10 +390,10 @@ toggle.addEventListener('click', function(){
 });
 panel.querySelector('.close').addEventListener('click', function(){ panel.hidden = true; });
 /* ---- Integração com o Google Gemini ----
-   O site chama um proxy (Cloudflare Worker) que guarda a chave do lado
-   do servidor. Ninguém precisa colar chave nenhuma; o navegador nunca
-   vê a chave real. */
-var GEMINI_PROXY_URL = 'https://trabalho-grecia-gemini-proxy.eduardo-vchaves23.workers.dev';
+   O site chama /api/gemini (função serverless da Vercel), que guarda a
+   chave do lado do servidor. Ninguém precisa colar chave nenhuma; o
+   navegador nunca vê a chave real. */
+var GEMINI_PROXY_URL = '/api/gemini';
 var chatHistory = []; // [{role:'user'|'model', text}]
 
 var GEMINI_SYSTEM =

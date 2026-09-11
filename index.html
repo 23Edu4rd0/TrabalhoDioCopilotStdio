@@ -100,15 +100,23 @@ audio.media-player{margin-top:4px;}
 .slide h3{font-family:var(--serif);font-size:1.25rem;margin:0 0 10px;color:var(--ink);text-wrap:balance;}
 .slide p.quote{font-style:italic;color:var(--gold-soft);margin:10px 0 0;}
 footer.site{border-top:1px solid var(--line);padding:30px 0 40px;text-align:center;color:var(--ink-dim);font-size:.82rem;}
-#ai-toggle{position:fixed;bottom:20px;right:20px;z-index:100;width:56px;height:56px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:#201703;font-size:1.4rem;cursor:pointer;box-shadow:0 10px 26px rgba(212,175,55,.35);}
-#ai-panel{position:fixed;bottom:88px;right:20px;z-index:100;width:min(360px,calc(100vw - 32px));max-height:min(520px,calc(100vh - 130px));background:var(--bg-alt);border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5);display:flex;flex-direction:column;overflow:hidden;}
+#ai-toggle{position:fixed;bottom:20px;right:20px;z-index:100;width:58px;height:58px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:#201703;font-size:1.4rem;cursor:pointer;box-shadow:0 10px 26px rgba(212,175,55,.35);transition:transform .2s ease,box-shadow .2s ease;}
+#ai-toggle:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 14px 32px rgba(212,175,55,.45);}
+#ai-toggle::before{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(212,175,55,.5);animation:ai-pulse 2.6s ease-out infinite;pointer-events:none;}
+#ai-toggle.open::before{display:none;}
+@keyframes ai-pulse{0%{transform:scale(.85);opacity:.8;}80%,100%{transform:scale(1.35);opacity:0;}}
+#ai-backdrop{position:fixed;inset:0;z-index:99;background:rgba(6,8,14,.55);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .2s ease;}
+#ai-backdrop.show{opacity:1;pointer-events:auto;}
+#ai-panel{position:fixed;bottom:90px;right:20px;z-index:100;width:min(380px,calc(100vw - 32px));height:min(560px,calc(100vh - 130px));background:var(--bg-alt);border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.55);display:flex;flex-direction:column;overflow:hidden;transform-origin:bottom right;transform:scale(.92) translateY(12px);opacity:0;visibility:hidden;transition:transform .18s ease,opacity .18s ease,visibility .18s;}
+#ai-panel.open{transform:scale(1) translateY(0);opacity:1;visibility:visible;}
 #ai-panel[hidden]{display:none;}
-.ai-head{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px;background:var(--card);}
-.ai-head .dot{width:8px;height:8px;border-radius:50%;background:#37d17c;box-shadow:0 0 6px #37d17c;}
+.ai-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;background:var(--card);flex:none;}
+.ai-head .dot{width:8px;height:8px;border-radius:50%;background:#37d17c;box-shadow:0 0 6px #37d17c;flex:none;}
 .ai-head strong{font-family:var(--serif);font-size:.95rem;}
 .ai-head span.sub{display:block;font-size:.7rem;color:var(--ink-dim);}
-.ai-head button.close{margin-left:auto;background:none;border:none;color:var(--ink-dim);font-size:1.05rem;cursor:pointer;}
-.ai-messages{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px;font-size:.87rem;}
+.ai-head button.close{margin-left:auto;background:none;border:1px solid transparent;color:var(--ink-dim);font-size:1.05rem;cursor:pointer;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;}
+.ai-head button.close:hover{background:rgba(255,255,255,.08);color:var(--ink);}
+.ai-messages{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 16px;display:flex;flex-direction:column;gap:10px;font-size:.87rem;overscroll-behavior:contain;}
 .msg{max-width:92%;padding:9px 12px;border-radius:12px;line-height:1.5;}
 .msg.bot{background:var(--card);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:3px;}
 .msg.user{background:rgba(212,175,55,.16);color:var(--ink);align-self:flex-end;border-bottom-right-radius:3px;}
@@ -118,13 +126,20 @@ footer.site{border-top:1px solid var(--line);padding:30px 0 40px;text-align:cent
 .msg.typing .dot:nth-child(2){animation-delay:.15s;}
 .msg.typing .dot:nth-child(3){animation-delay:.3s;}
 @keyframes typing-bounce{0%,60%,100%{transform:translateY(0);opacity:.4;}30%{transform:translateY(-4px);opacity:1;}}
-.ai-suggestions{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 8px;}
-.chip{font-size:.72rem;padding:5px 9px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink-dim);cursor:pointer;}
+.ai-suggestions{display:flex;gap:6px;padding:0 16px 10px;flex:none;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.ai-suggestions::-webkit-scrollbar{display:none;}
+.chip{flex:none;font-size:.72rem;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink-dim);cursor:pointer;white-space:nowrap;transition:border-color .15s,color .15s;}
 .chip:hover{border-color:var(--gold);color:var(--gold-soft);}
-.ai-input{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);background:var(--card);}
-.ai-input input{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 11px;color:var(--ink);font-size:.87rem;}
+.ai-input{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);background:var(--card);flex:none;}
+.ai-input input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 12px;color:var(--ink);font-size:.95rem;}
 .ai-input input:focus{outline:1px solid var(--gold);}
-.ai-input button{background:var(--gold);border:none;border-radius:10px;padding:0 14px;font-weight:700;cursor:pointer;color:#201703;}
+.ai-input input:disabled{opacity:.6;}
+.ai-input button{background:var(--gold);border:none;border-radius:10px;padding:0 16px;font-weight:700;cursor:pointer;color:#201703;min-width:44px;transition:opacity .15s;}
+.ai-input button:disabled{opacity:.5;cursor:default;}
+@media (max-width:600px){
+  #ai-panel{right:12px;left:12px;bottom:12px;width:auto;height:min(72vh,620px);border-radius:18px;transform-origin:bottom center;}
+  #ai-toggle{bottom:16px;right:16px;}
+}
 .slides-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
 .slides-gallery figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
 .slides-gallery img{width:100%;aspect-ratio:16/9;object-fit:cover;background:#000;cursor:zoom-in;display:block;}
@@ -368,12 +383,15 @@ function addMsg(container, role, text, src){
   container.appendChild(msg);
   container.scrollTop = container.scrollHeight;
 }
+var backdrop = document.createElement('div');
+backdrop.id = 'ai-backdrop';
+document.body.appendChild(backdrop);
 var toggle = document.createElement('button');
 toggle.id='ai-toggle'; toggle.textContent='🎭'; toggle.setAttribute('aria-label','Abrir agente de IA');
 document.body.appendChild(toggle);
 var panel = document.createElement('div');
 panel.id='ai-panel'; panel.hidden = true;
-panel.innerHTML = '<div class="ai-head"><span class="dot"></span><div><strong>Agente da Companhia</strong><span class="sub">Responde com base no trabalho e nos slides</span></div><button class="close" aria-label="Fechar">✕</button></div><div class="ai-messages" id="ai-messages"></div><div class="ai-suggestions" id="ai-suggestions"></div><div class="ai-input"><input id="ai-field" type="text" placeholder="Pergunte sobre o teatro grego..." autocomplete="off"/><button id="ai-send">Enviar</button></div>';
+panel.innerHTML = '<div class="ai-head"><span class="dot"></span><div><strong>Agente da Companhia</strong><span class="sub">Responde com base no trabalho e nos slides</span></div><button class="close" aria-label="Fechar">✕</button></div><div class="ai-messages" id="ai-messages"></div><div class="ai-suggestions" id="ai-suggestions"></div><div class="ai-input"><input id="ai-field" type="text" placeholder="Pergunte sobre o teatro grego..." autocomplete="off"/><button id="ai-send" aria-label="Enviar">➤</button></div>';
 document.body.appendChild(panel);
 var messages = panel.querySelector('#ai-messages');
 var suggestionsBox = panel.querySelector('#ai-suggestions');
@@ -385,15 +403,33 @@ var sendBtn = panel.querySelector('#ai-send');
   suggestionsBox.appendChild(chip);
 });
 var greeted = false;
-toggle.addEventListener('click', function(){
-  panel.hidden = !panel.hidden;
-  if(!panel.hidden && !greeted){
+function openPanel(){
+  panel.hidden = false;
+  requestAnimationFrame(function(){ panel.classList.add('open'); });
+  backdrop.classList.add('show');
+  toggle.classList.add('open');
+  toggle.setAttribute('aria-label','Fechar agente de IA');
+  if(!greeted){
     greeted = true;
     addMsg(messages,'bot','Salve! 🎭 Sou o agente de IA da Companhia das Máscaras Gregas, com o Google Gemini. Pergunte sobre a origem do teatro, Dionísio, máscaras, tragédia, comédia, os dramaturgos ou o legado até hoje.');
   }
-  if(!panel.hidden) field.focus();
+  setTimeout(function(){ field.focus(); }, 180);
+}
+function closePanel(){
+  panel.classList.remove('open');
+  backdrop.classList.remove('show');
+  toggle.classList.remove('open');
+  toggle.setAttribute('aria-label','Abrir agente de IA');
+  setTimeout(function(){ if(!panel.classList.contains('open')) panel.hidden = true; }, 200);
+}
+toggle.addEventListener('click', function(){
+  if(panel.classList.contains('open')) closePanel(); else openPanel();
 });
-panel.querySelector('.close').addEventListener('click', function(){ panel.hidden = true; });
+panel.querySelector('.close').addEventListener('click', closePanel);
+backdrop.addEventListener('click', closePanel);
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && panel.classList.contains('open')) closePanel();
+});
 /* ---- Integração com o Google Gemini ----
    O site chama /api/gemini (função serverless da Vercel), que guarda a
    chave do lado do servidor. Ninguém precisa colar chave nenhuma; o

@@ -52,6 +52,8 @@ section:first-of-type{border-top:none;}
 .media-block{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start;}
 @media (max-width:720px){.media-block{grid-template-columns:1fr;}}
 .video-fallback{width:100%;aspect-ratio:16/9;border-radius:var(--radius);border:1px solid var(--line);background:linear-gradient(135deg,#12070a,#1c2238);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--ink-dim);text-align:center;padding:20px;}
+video.media-player{width:100%;border-radius:var(--radius);border:1px solid var(--line);background:#000;display:block;}
+audio.media-player{margin-top:4px;}
 .video-fallback .play{width:56px;height:56px;border-radius:50%;background:rgba(212,175,55,.16);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--gold-soft);}
 .podcast-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;}
 .podcast-card h3{font-family:var(--serif);margin:0 0 6px;color:var(--gold-soft);}
@@ -156,19 +158,22 @@ footer.site{border-top:1px solid var(--line);padding:30px 0 40px;text-align:cent
         <p>Apresentado por Gabriel Morato e Maria Luíza. O mesmo áudio pode ser ouvido separadamente, em formato podcast.</p>
       </div>
       <div class="media-block">
-        <div class="video-fallback">
-          <div class="play">▶</div>
-          <strong style="color:var(--ink);font-family:var(--serif);">apresentacao.mp4</strong>
-          <span>Vídeo real embutido no site publicado (26&nbsp;MB) — placeholder nesta prévia</span>
+        <div>
+          <video class="media-player" controls preload="metadata" playsinline>
+            <source src="media/apresentacao.mp4" type="video/mp4" />
+            Seu navegador não suporta vídeo embutido.
+            <a href="media/apresentacao.mp4">Baixar o vídeo</a>.
+          </video>
+          <p style="margin:10px 0 0;color:var(--ink-dim);font-size:.82rem;">apresentacao.mp4 · apresentação da equipe</p>
         </div>
         <div class="podcast-card">
           <h3>🎧 Versão podcast</h3>
           <p>Prefere só escutar? O áudio da apresentação, para ouvir enquanto lê o trabalho ou os slides.</p>
-          <div class="fake-audio">
-            <button class="play">▶</button>
-            <div class="bar"></div>
-            <span class="time">2:14 / 9:40</span>
-          </div>
+          <audio class="media-player" controls preload="none" style="width:100%;">
+            <source src="media/apresentacao.mp4" type="video/mp4" />
+            Seu navegador não suporta áudio embutido.
+            <a href="media/apresentacao.mp4">Baixar o áudio</a>.
+          </audio>
           <p style="margin-top:12px;color:var(--ink-dim);font-size:.85rem;">Roteiro: origem dionisíaca · nascimento do ator com Téspis · máscaras e coro · tragédia x comédia · dramaturgos · arquitetura · legado até hoje.</p>
         </div>
       </div>

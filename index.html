@@ -98,10 +98,18 @@ footer.site{border-top:1px solid var(--line);padding:30px 0 40px;text-align:cent
 .ai-input input{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 11px;color:var(--ink);font-size:.87rem;}
 .ai-input input:focus{outline:1px solid var(--gold);}
 .ai-input button{background:var(--gold);border:none;border-radius:10px;padding:0 14px;font-weight:700;cursor:pointer;color:#201703;}
-.preview-note{max-width:1080px;margin:14px auto 0;padding:10px 16px;background:rgba(212,175,55,.08);border:1px solid var(--line);border-radius:10px;color:var(--ink-dim);font-size:.8rem;text-align:center;}
+.slides-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
+.slides-gallery figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+.slides-gallery img{width:100%;aspect-ratio:16/9;object-fit:cover;background:#000;cursor:zoom-in;display:block;}
+.slides-gallery figcaption{padding:8px 12px;font-size:.78rem;color:var(--ink-dim);font-variant-numeric:tabular-nums;}
+.slide-lightbox{position:fixed;inset:0;z-index:200;background:rgba(6,8,14,.92);display:flex;align-items:center;justify-content:center;padding:24px;}
+.slide-lightbox[hidden]{display:none;}
+.slide-lightbox img{max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.6);}
+.slide-lightbox button{position:absolute;background:rgba(255,255,255,.1);border:1px solid var(--line);color:var(--ink);width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;}
+.slide-lightbox .lb-close{top:20px;right:20px;}
+.slide-lightbox .lb-prev{left:20px;top:50%;transform:translateY(-50%);}
+.slide-lightbox .lb-next{right:20px;top:50%;transform:translateY(-50%);}
 </style>
-
-<div class="preview-note">Prévia do site (uma página com abas, para visualização rápida). No repositório real são 3 páginas separadas e o vídeo de fato está embutido — aqui a versão só mostra um placeholder porque o arquivo é grande demais para esta prévia.</div>
 
 <header class="site">
   <nav class="nav">
@@ -236,35 +244,20 @@ footer.site{border-top:1px solid var(--line);padding:30px 0 40px;text-align:cent
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">Apresentação</p>
-        <h2>Slides usados no vídeo/podcast</h2>
-        <p>Apresentado por Gabriel Morato e Maria Luíza (mostrando 4 de 28 slides nesta prévia).</p>
+        <h2>Slides da apresentação</h2>
+        <p>Apresentado por Gabriel Morato e Maria Luíza — 30 slides. Clique em um slide para ampliar. <a href="media/slides.pdf" target="_blank" rel="noopener">Baixar o PDF completo</a>.</p>
       </div>
-      <div class="slides-deck">
-        <div class="slide"><span class="num">01</span>
-          <div class="presenter">Apresentadora: Maria Luíza</div>
-          <h3>O que entendemos por teatro?</h3>
-          <p>Corpo (a ferramenta da ação) · Voz (o veículo do texto) · Espaço (o lugar do encontro) · Público (a testemunha necessária).</p>
-          <p class="quote">"Teatro é encontro: a transformação da ação em acontecimento compartilhado."</p>
-        </div>
-        <div class="slide"><span class="num">03</span>
-          <div class="presenter">Apresentador: Gabriel Morato</div>
-          <h3>Onde surgiu o teatro grego? Atenas, Ática</h3>
-          <p class="quote">"Onde o sagrado encontra o palco." — 37.9838° N, 23.7275° E</p>
-        </div>
-        <div class="slide"><span class="num">09</span>
-          <div class="presenter">Apresentador: Gabriel Morato</div>
-          <h3>O pioneiro: Téspis e o primeiro ator</h3>
-          <p class="quote">"O nascimento da presença individual no palco."</p>
-        </div>
-        <div class="slide"><span class="num">28</span>
-          <div class="presenter">Gabriel Morato · Maria Luíza</div>
-          <h3>Conclusão</h3>
-          <p class="quote">Muda o palco. Permanece o encontro.</p>
-        </div>
-      </div>
+      <div class="slides-gallery" id="slides-gallery"></div>
     </div>
   </section>
 </main>
+
+<div class="slide-lightbox" id="slide-lightbox" hidden>
+  <button class="lb-close" id="lb-close" aria-label="Fechar">✕</button>
+  <button class="lb-prev" id="lb-prev" aria-label="Anterior">‹</button>
+  <img id="lb-img" alt="Slide ampliado" />
+  <button class="lb-next" id="lb-next" aria-label="Próximo">›</button>
+</div>
 
 <footer class="site">
   <div class="wrap">Companhia das Máscaras Gregas — 2º Ano A · Artes e História da Cultura Ocidental · Divinópolis, MG, 2026<br>Ana Clara · Gabriel Morato · Isabela Porto · Maria Luiza da Silva</div>
@@ -446,6 +439,56 @@ kbtn.addEventListener('click', function(){
   addMsg(messages,'bot', v.trim() ? 'Chave atualizada.' : 'Chave removida — passo a responder pela base local.');
 });
 panel.querySelector('.ai-head').insertBefore(kbtn, panel.querySelector('.ai-head .close'));
+</script>
+
+<script>
+/* ---- Galeria de slides (páginas do PDF) ---- */
+(function(){
+  var TOTAL = 30;
+  var gallery = document.getElementById('slides-gallery');
+  if(!gallery) return;
+  var srcs = [];
+  for(var i=1;i<=TOTAL;i++){
+    var n = (i<10?'0':'') + i;
+    var src = 'media/slides/slide-' + n + '.jpg';
+    srcs.push(src);
+    var fig = document.createElement('figure');
+    var img = document.createElement('img');
+    img.src = src;
+    img.loading = 'lazy';
+    img.alt = 'Slide ' + i + ' de ' + TOTAL;
+    img.dataset.index = i - 1;
+    var cap = document.createElement('figcaption');
+    cap.textContent = 'Slide ' + n + ' / ' + TOTAL;
+    fig.appendChild(img); fig.appendChild(cap);
+    gallery.appendChild(fig);
+  }
+
+  var lb = document.getElementById('slide-lightbox');
+  var lbImg = document.getElementById('lb-img');
+  var cur = 0;
+  function show(idx){
+    cur = (idx + TOTAL) % TOTAL;
+    lbImg.src = srcs[cur];
+    lbImg.alt = 'Slide ' + (cur+1) + ' de ' + TOTAL;
+    lb.hidden = false;
+  }
+  function close(){ lb.hidden = true; lbImg.src = ''; }
+  gallery.addEventListener('click', function(e){
+    var t = e.target;
+    if(t.tagName === 'IMG' && t.dataset.index !== undefined) show(parseInt(t.dataset.index,10));
+  });
+  document.getElementById('lb-close').addEventListener('click', close);
+  document.getElementById('lb-prev').addEventListener('click', function(){ show(cur-1); });
+  document.getElementById('lb-next').addEventListener('click', function(){ show(cur+1); });
+  lb.addEventListener('click', function(e){ if(e.target === lb) close(); });
+  document.addEventListener('keydown', function(e){
+    if(lb.hidden) return;
+    if(e.key === 'Escape') close();
+    else if(e.key === 'ArrowLeft') show(cur-1);
+    else if(e.key === 'ArrowRight') show(cur+1);
+  });
+})();
 </script>
 </body>
 </html>

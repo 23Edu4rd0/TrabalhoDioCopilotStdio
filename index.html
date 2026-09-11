@@ -28,12 +28,30 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(15,19,32,.92);backd
 .tab-btn{color:var(--ink-dim);background:none;border:none;font-size:.92rem;padding:8px 12px;border-radius:999px;cursor:pointer;font-family:var(--sans);transition:background .2s,color .2s;}
 .tab-btn:hover{background:rgba(212,175,55,.1);color:var(--gold-soft);}
 .tab-btn.active{background:rgba(212,175,55,.14);color:var(--gold-soft);}
-.hero{padding:56px 0 34px;text-align:center;}
+.hero{padding:64px 0 40px;position:relative;overflow:hidden;}
+.hero::before{content:"";position:absolute;inset:-20% -10% auto -10%;height:420px;background:radial-gradient(ellipse at 30% 0%,rgba(212,175,55,.16),transparent 60%);pointer-events:none;}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.15fr 1fr;gap:48px;align-items:center;}
+.hero-copy{text-align:left;}
 .hero .kicker{text-transform:uppercase;letter-spacing:3px;font-size:.72rem;color:var(--gold);margin-bottom:14px;}
-.hero h1{font-family:var(--serif);font-size:clamp(1.8rem,5vw,3rem);margin:0 0 16px;line-height:1.15;}
+.hero h1{font-family:var(--serif);font-size:clamp(1.9rem,4vw,3.1rem);margin:0 0 16px;line-height:1.15;text-wrap:balance;}
 .hero h1 em{color:var(--gold-soft);font-style:normal;}
-.hero p.lead{max-width:640px;margin:0 auto 24px;color:var(--ink-dim);font-size:1.04rem;}
-.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.hero p.lead{max-width:520px;margin:0 0 26px;color:var(--ink-dim);font-size:1.05rem;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap;margin:32px 0 0;padding-top:24px;border-top:1px solid var(--line);}
+.hero-stats div{margin:0;}
+.hero-stats dt{font-family:var(--serif);font-size:1.5rem;color:var(--gold-soft);}
+.hero-stats dd{margin:2px 0 0;font-size:.76rem;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.06em;}
+.hero-visual{position:relative;display:block;border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 24px 70px rgba(0,0,0,.45);aspect-ratio:16/9;background:#000;}
+.hero-visual::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.55),transparent 55%);z-index:1;}
+.hero-visual img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease;}
+.hero-visual:hover img{transform:scale(1.04);}
+.hero-visual-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--gold-soft),var(--gold));display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#201703;box-shadow:0 10px 26px rgba(212,175,55,.4);}
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-copy{text-align:center;}
+  .hero-actions,.hero-stats{justify-content:center;}
+  .hero p.lead{margin-left:auto;margin-right:auto;}
+}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;border:1px solid transparent;cursor:pointer;background:none;font-family:var(--sans);}
 .btn.gold{background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:#201703;box-shadow:0 8px 20px rgba(212,175,55,.25);}
 .btn.ghost{background:transparent;border-color:var(--line);color:var(--ink);}
@@ -105,6 +123,8 @@ footer.site{border-top:1px solid var(--line);padding:30px 0 40px;text-align:cent
 .slides-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
 .slides-gallery figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
 .slides-gallery img{width:100%;aspect-ratio:16/9;object-fit:cover;background:#000;cursor:zoom-in;display:block;}
+.slides-gallery.portrait{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));}
+.slides-gallery.portrait img{aspect-ratio:210/297;object-fit:contain;background:#fff;}
 .slides-gallery figcaption{padding:8px 12px;font-size:.78rem;color:var(--ink-dim);font-variant-numeric:tabular-nums;}
 .slide-lightbox{position:fixed;inset:0;z-index:200;background:rgba(6,8,14,.92);display:flex;align-items:center;justify-content:center;padding:24px;}
 .slide-lightbox[hidden]{display:none;}
@@ -131,19 +151,31 @@ footer.site{border-top:1px solid var(--line);padding:30px 0 40px;text-align:cent
 
 <main id="tab-inicio">
   <section class="hero">
-    <div class="wrap">
-      <p class="kicker">Artes &amp; História da Cultura Ocidental · Divinópolis, MG · 2026</p>
-      <h1>O nascimento do <em>teatro grego</em><br>e sua influência até hoje</h1>
-      <p class="lead">Como o teatro grego transformou a maneira como os seres humanos contam histórias, representam conflitos e refletem sobre a sociedade? Este site reúne o trabalho teórico, a apresentação em slides, o vídeo/podcast da equipe e um agente de IA para tirar suas dúvidas.</p>
-      <div class="hero-actions">
-        <a class="btn gold" href="#midia">▶ Assistir e ouvir</a>
-        <button class="btn ghost" data-tab="teoria">Ler o trabalho teórico</button>
-        <button class="btn ghost" data-tab="slides">Ver os slides</button>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="kicker">Artes &amp; História da Cultura Ocidental · Divinópolis, MG · 2026</p>
+        <h1>O nascimento do <em>teatro grego</em><br>e sua influência até hoje</h1>
+        <p class="lead">Como o teatro grego transformou a maneira como os seres humanos contam histórias, representam conflitos e refletem sobre a sociedade? Este site reúne o trabalho teórico, a apresentação em slides, o vídeo/podcast da equipe e um agente de IA para tirar suas dúvidas.</p>
+        <div class="hero-actions">
+          <a class="btn gold" href="#midia">▶ Assistir e ouvir</a>
+          <button class="btn ghost" data-tab="teoria">Ler o trabalho teórico</button>
+          <button class="btn ghost" data-tab="slides">Ver os slides</button>
+        </div>
+        <dl class="hero-stats">
+          <div><dt>18</dt><dd>páginas de teoria</dd></div>
+          <div><dt>30</dt><dd>slides</dd></div>
+          <div><dt>1</dt><dd>vídeo + podcast</dd></div>
+          <div><dt>24/7</dt><dd>agente de IA</dd></div>
+        </dl>
+        <div class="masks-row" aria-hidden="true">
+          <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#b5342f" stroke-width="3"/><circle cx="36" cy="42" r="4" fill="#b5342f"/><circle cx="64" cy="42" r="4" fill="#b5342f"/><path d="M32 68c6-10 30-10 36 0" stroke="#b5342f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+          <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#2f8f6f" stroke-width="3"/><circle cx="36" cy="42" r="4" fill="#2f8f6f"/><circle cx="64" cy="42" r="4" fill="#2f8f6f"/><path d="M32 62c6 10 30 10 36 0" stroke="#2f8f6f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+        </div>
       </div>
-      <div class="masks-row" aria-hidden="true">
-        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#b5342f" stroke-width="3"/><circle cx="36" cy="42" r="4" fill="#b5342f"/><circle cx="64" cy="42" r="4" fill="#b5342f"/><path d="M32 68c6-10 30-10 36 0" stroke="#b5342f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
-        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#2f8f6f" stroke-width="3"/><circle cx="36" cy="42" r="4" fill="#2f8f6f"/><circle cx="64" cy="42" r="4" fill="#2f8f6f"/><path d="M32 62c6 10 30 10 36 0" stroke="#2f8f6f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
-      </div>
+      <a class="hero-visual" href="#midia" aria-label="Assistir ao vídeo da apresentação">
+        <img src="media/slides/slide-01.jpg" alt="Slide de abertura da apresentação" loading="eager" />
+        <span class="hero-visual-play">▶</span>
+      </a>
     </div>
   </section>
 
@@ -239,11 +271,10 @@ footer.site{border-top:1px solid var(--line);padding:30px 0 40px;text-align:cent
         </table>
         <div class="pdf-block">
           <div class="pdf-bar">
-            <span>📄 Trabalho teórico completo — 18 páginas (PDF)</span>
-            <a class="btn gold" href="media/teoria.pdf" target="_blank" rel="noopener">Abrir / baixar</a>
+            <span>📄 Trabalho teórico completo — 18 páginas</span>
+            <a class="btn gold" href="media/teoria.pdf" target="_blank" rel="noopener">Baixar o PDF</a>
           </div>
-          <iframe class="pdf-frame" src="media/teoria.pdf#view=FitH" title="Trabalho teórico completo em PDF" loading="lazy"></iframe>
-          <p class="pdf-fallback">Não consegue ver o PDF acima? <a href="media/teoria.pdf" target="_blank" rel="noopener">Abra em uma nova aba</a>.</p>
+          <div class="slides-gallery portrait" id="teoria-gallery"></div>
         </div>
       </article>
     </div>
@@ -453,42 +484,20 @@ panel.querySelector('.ai-head').insertBefore(kbtn, panel.querySelector('.ai-head
 </script>
 
 <script>
-/* ---- Galeria de slides (páginas do PDF) ---- */
+/* ---- Galerias de imagens (slides e páginas do PDF teórico), com lightbox compartilhado ---- */
 (function(){
-  var TOTAL = 30;
-  var gallery = document.getElementById('slides-gallery');
-  if(!gallery) return;
-  var srcs = [];
-  for(var i=1;i<=TOTAL;i++){
-    var n = (i<10?'0':'') + i;
-    var src = 'media/slides/slide-' + n + '.jpg';
-    srcs.push(src);
-    var fig = document.createElement('figure');
-    var img = document.createElement('img');
-    img.src = src;
-    img.loading = 'lazy';
-    img.alt = 'Slide ' + i + ' de ' + TOTAL;
-    img.dataset.index = i - 1;
-    var cap = document.createElement('figcaption');
-    cap.textContent = 'Slide ' + n + ' / ' + TOTAL;
-    fig.appendChild(img); fig.appendChild(cap);
-    gallery.appendChild(fig);
-  }
-
   var lb = document.getElementById('slide-lightbox');
   var lbImg = document.getElementById('lb-img');
-  var cur = 0;
+  if(!lb) return;
+  var activeSrcs = [], activeLabel = '', cur = 0;
+
   function show(idx){
-    cur = (idx + TOTAL) % TOTAL;
-    lbImg.src = srcs[cur];
-    lbImg.alt = 'Slide ' + (cur+1) + ' de ' + TOTAL;
+    cur = (idx + activeSrcs.length) % activeSrcs.length;
+    lbImg.src = activeSrcs[cur];
+    lbImg.alt = activeLabel + ' ' + (cur+1) + ' de ' + activeSrcs.length;
     lb.hidden = false;
   }
   function close(){ lb.hidden = true; lbImg.src = ''; }
-  gallery.addEventListener('click', function(e){
-    var t = e.target;
-    if(t.tagName === 'IMG' && t.dataset.index !== undefined) show(parseInt(t.dataset.index,10));
-  });
   document.getElementById('lb-close').addEventListener('click', close);
   document.getElementById('lb-prev').addEventListener('click', function(){ show(cur-1); });
   document.getElementById('lb-next').addEventListener('click', function(){ show(cur+1); });
@@ -499,6 +508,37 @@ panel.querySelector('.ai-head').insertBefore(kbtn, panel.querySelector('.ai-head
     else if(e.key === 'ArrowLeft') show(cur-1);
     else if(e.key === 'ArrowRight') show(cur+1);
   });
+
+  function buildGallery(containerId, pathPrefix, total, label){
+    var gallery = document.getElementById(containerId);
+    if(!gallery) return;
+    var srcs = [];
+    for(var i=1;i<=total;i++){
+      var n = (i<10?'0':'') + i;
+      var src = pathPrefix + n + '.jpg';
+      srcs.push(src);
+      var fig = document.createElement('figure');
+      var img = document.createElement('img');
+      img.src = src;
+      img.loading = 'lazy';
+      img.alt = label + ' ' + i + ' de ' + total;
+      img.dataset.index = i - 1;
+      var cap = document.createElement('figcaption');
+      cap.textContent = label + ' ' + n + ' / ' + total;
+      fig.appendChild(img); fig.appendChild(cap);
+      gallery.appendChild(fig);
+    }
+    gallery.addEventListener('click', function(e){
+      var t = e.target;
+      if(t.tagName === 'IMG' && t.dataset.index !== undefined){
+        activeSrcs = srcs; activeLabel = label;
+        show(parseInt(t.dataset.index,10));
+      }
+    });
+  }
+
+  buildGallery('slides-gallery', 'media/slides/slide-', 30, 'Slide');
+  buildGallery('teoria-gallery', 'media/teoria-paginas/pagina-', 18, 'Página');
 })();
 </script>
 </body>
